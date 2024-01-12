@@ -9,7 +9,7 @@ func main() {
 
 	app := fiber.New()
 
-	app.Post("/shorten", handlers.Handler)
+	app.Post("/shorte", handlers.Handler)
 
 	app.Listen(":8080")
 
