@@ -9,7 +9,6 @@ import (
 
 func Handler(c *fiber.Ctx) error {
 	body := c.Body()
-
 	var input entity.Url
 	if err := json.Unmarshal(body, &input); err != nil {
 		return err
