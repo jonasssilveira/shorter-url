@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"time"
 	db "urlShorter/db/sqlc"
 	"urlShorter/repository"
 )
@@ -36,7 +35,7 @@ func (u *URL) CreateURL(
 
 	updateURL, err := u.query.UpdateURL(ctx, db.UpdateURLParams{
 		UrlEncoded:     params.UrlEncoded,
-		ExpirationDate: time.Time{},
+		ExpirationDate: params.ExpirationDate,
 	})
 
 	if err != nil {
@@ -46,6 +45,10 @@ func (u *URL) CreateURL(
 
 	return db.CreateURLRow{
 		UrlEncoded:     updateURL.UrlEncoded,
-		ExpirationDate: time.Time{},
+		ExpirationDate: updateURL.ExpirationDate,
 	}, err
+}
+
+func (u *URL) DeleteURL(ctx context.Context, urlEncoded string) error {
+	return u.query.DeleteURL(ctx, urlEncoded)
 }

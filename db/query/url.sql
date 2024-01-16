@@ -23,7 +23,7 @@ WHERE url_encoded = $1 RETURNING url_encoded, expiration_date;
 -- name: DeleteURL :exec
 DELETE
 FROM url
-WHERE id = $1;
+WHERE url_encoded = $1;
 
 -- name: DeleteDeprecatedURL :exec
 DELETE FROM url

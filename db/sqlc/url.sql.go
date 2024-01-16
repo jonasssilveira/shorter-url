@@ -48,11 +48,11 @@ func (q *Queries) DeleteDeprecatedURL(ctx context.Context) error {
 const deleteURL = `-- name: DeleteURL :exec
 DELETE
 FROM url
-WHERE id = $1
+WHERE url_encoded = $1
 `
 
-func (q *Queries) DeleteURL(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteURL, id)
+func (q *Queries) DeleteURL(ctx context.Context, urlEncoded string) error {
+	_, err := q.db.ExecContext(ctx, deleteURL, urlEncoded)
 	return err
 }
 
