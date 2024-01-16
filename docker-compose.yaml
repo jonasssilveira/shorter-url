@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pass321
+      POSTGRES_DB: encode_url
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5431:5432"
+    command: postgres -c ssl=off
+    networks:
+      - simple-bank
+
+  flyway:
+    image: flyway/flyway
+    container_name: flyway
+    volumes:
+      - ./db/migration:/flyway/sql
+    environment:
+      FLYWAY_URL: jdbc:postgresql://postgres:5432/encode_url
+      FLYWAY_USER: root
+      FLYWAY_PASSWORD: pass321
+      MYSQL_ALLOW_PUBLIC_KEY_RETRIEVAL: "false"
+      MYSQL_SSL: "false"
+    command: migrate
+    depends_on:
+      - postgres
+    networks:
+      - simple-bank
+
+networks:
+  simple-bank:
+    driver: bridge

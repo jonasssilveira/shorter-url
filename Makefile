@@ -2,7 +2,7 @@ format:
 	goimports -w .
 
 lint:
-	golangci-lint run
+	docker run -t --rm -v "$(shell pwd)":/app -w /app golangci/golangci-lint golangci-lint run -v
 
 test:
 	go test -v ./...
@@ -16,13 +16,16 @@ vet:
 	go vet ./...
 
 staticcheck:
-	staticcheck ./...
+	 docker run -v "$(shell pwd)":/go/src/app -w /go/src/app -ti devdrops/staticcheck:latest staticcheck ./...
 
 revive:
-	revive -config ../revive.toml -formatter friendly ./...
+	@docker run -v "$(shell pwd)":/var/revive ghcr.io/mgechev/revive -config /var/revive/revive.toml -formatter friendly ./...
 
 remove-coverage-files:
 	rm cover_report.out coverage.out
+
+sqlc-generate:
+	docker run --rm -v "$(shell pwd)/db:/src" -w /src sqlc/sqlc generate
 
 all-checks:
 	-$(MAKE) format

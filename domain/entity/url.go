@@ -1,5 +1,5 @@
 package entity
 
-type Url struct {
-	FullUrl string `json:"full_url"`
+type URL struct {
+	FullURL string `json:"full_url"`
 }

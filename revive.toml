@@ -98,14 +98,6 @@ description = "Flag errors using strings instead of error type."
 enable = true
 description = "Flag issues with errorf usage."
 
-[rule.exported]
-enable = true
-description = "Flag exported identifiers."
-
-[rule.file-header]
-enable = true
-description = "Enforce having a file header comment."
-
 [rule.flag-parameter]
 enable = true
 description = "Flag parameters with `flag` package types."
@@ -165,10 +157,6 @@ description = "Flag value receiver methods that modify their receiver."
 [rule.nested-structs]
 enable = true
 description = "Flag nested structs."
-
-[rule.package-comments]
-enable = true
-description = "Enforce having comments in packages."
 
 [rule.range]
 enable = true

@@ -1,0 +1,16 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "./query/"
+    schema: "./migration/"
+    #database:
+      #uri: postgresql://root:pass321@postgres:5432/mydatabase?sslmode=disable
+     # managed: true
+    gen:
+      go:
+        package: "db"
+        out: "sqlc"
+        emit_prepared_queries: false
+        emit_interface: false
+        emit_exact_table_names: false
+        emit_json_tags: true

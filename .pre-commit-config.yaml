@@ -4,5 +4,9 @@ repos:
       - id: go-checks
         name: Run Go checks
         entry: make all-checks
+        verbose: true
+        always_run: true
+        pass_filenames: true
+        return_codes: [0, 1]
         language: system
         files: '\.go$'

@@ -1,16 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"urlShorter/config"
+	db "urlShorter/db/sqlc"
 	"urlShorter/handlers"
+	"urlShorter/usecase"
 )
 
 func main() {
-
 	app := fiber.New()
 
-	app.Post("/shorten", handlers.Handler)
+	database := config.GetDBClient()
 
-	app.Listen(":8080")
+	databaseClient := db.New(database)
+	URLUseCase := usecase.NewURL(databaseClient)
+	encodeURL := handlers.NewEncodeURL(URLUseCase)
 
+	app.Post("/shorten", encodeURL.Handler)
+
+	err := app.Listen(":8080")
+	if err != nil {
+		fmt.Printf("error to start server, error %v", err.Error())
+	}
 }
