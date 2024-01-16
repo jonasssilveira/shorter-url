@@ -19,7 +19,6 @@ func NewEncodeURL(useCaseURL usecase.URL) EncodeURL {
 }
 
 func (e *EncodeURL) Handler(c *fiber.Ctx) error {
-
 	body := c.Body()
 	var input entity.URL
 	if err := json.Unmarshal(body, &input); err != nil {

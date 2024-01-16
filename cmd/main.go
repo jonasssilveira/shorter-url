@@ -15,8 +15,8 @@ func main() {
 	database := config.GetDBClient()
 
 	databaseClient := db.New(database)
-	URLUseCase := usecase.NewURL(databaseClient)
-	encodeURL := handlers.NewEncodeURL(URLUseCase)
+	urlUseCase := usecase.NewURL(databaseClient)
+	encodeURL := handlers.NewEncodeURL(urlUseCase)
 
 	app.Post("/shorten", encodeURL.Handler)
 

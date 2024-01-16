@@ -18,7 +18,10 @@ func NewURL(query repository.URLRepository) URL {
 	return URL{query: query}
 }
 
-func (u *URL) CreateURL(ctx context.Context, params db.CreateURLParams) (db.CreateURLRow, error) {
+func (u *URL) CreateURL(
+	ctx context.Context,
+	params db.CreateURLParams,
+) (db.CreateURLRow, error) {
 	_, err := u.query.GetURL(ctx, params.UrlEncoded)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -27,12 +30,8 @@ func (u *URL) CreateURL(ctx context.Context, params db.CreateURLParams) (db.Crea
 				fmt.Printf("error to get url, error %v", err.Error())
 				return db.CreateURLRow{}, err
 			}
-			return createURL, nil
-		} else {
-			fmt.Printf("error to get url, error %v", err.Error())
-			return db.CreateURLRow{}, err
+			return createURL, err
 		}
-
 	}
 
 	updateURL, err := u.query.UpdateURL(ctx, db.UpdateURLParams{
