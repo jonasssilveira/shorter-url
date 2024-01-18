@@ -57,22 +57,16 @@ func (q *Queries) DeleteURL(ctx context.Context, urlEncoded string) error {
 }
 
 const getURL = `-- name: GetURL :one
-SELECT id, url_encoded, url_original, expiration_date, created_at
+SELECT url_original
 FROM url
 WHERE url_encoded = $1 LIMIT 1
 `
 
-func (q *Queries) GetURL(ctx context.Context, urlEncoded string) (Url, error) {
+func (q *Queries) GetURL(ctx context.Context, urlEncoded string) (string, error) {
 	row := q.db.QueryRowContext(ctx, getURL, urlEncoded)
-	var i Url
-	err := row.Scan(
-		&i.ID,
-		&i.UrlEncoded,
-		&i.UrlOriginal,
-		&i.ExpirationDate,
-		&i.CreatedAt,
-	)
-	return i, err
+	var url_original string
+	err := row.Scan(&url_original)
+	return url_original, err
 }
 
 const listURL = `-- name: ListURL :many

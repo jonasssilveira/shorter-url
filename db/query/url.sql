@@ -5,15 +5,9 @@ INSERT INTO url (url_encoded,
 VALUES ($1, $2, $3)RETURNING url_encoded, expiration_date;
 
 -- name: GetURL :one
-SELECT *
+SELECT url_original
 FROM url
 WHERE url_encoded = $1 LIMIT 1;
-
--- name: ListURL :many
-SELECT *
-FROM url
-ORDER BY $1 LIMIT $2
-OFFSET $3;
 
 -- name: UpdateURL :one
 UPDATE url

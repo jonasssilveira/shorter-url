@@ -3,9 +3,6 @@ sql:
   - engine: "postgresql"
     queries: "./query/"
     schema: "./migration/"
-    #database:
-      #uri: postgresql://root:pass321@postgres:5432/mydatabase?sslmode=disable
-     # managed: true
     gen:
       go:
         package: "db"
